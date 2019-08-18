@@ -1,0 +1,54 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebPizzaTime.Pages.Index
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Pizza Cabin Inc. StandUp Time Tool</title>
+</head>
+<body>
+<div class="container">    
+    <div class="row">
+        <div class="col col-lg-2">
+        </div>
+        <div class="col-md-auto">
+            
+            <div class="p-5 border border-dark rounded mb-5 mt-3">
+                <h1>Pizza Cabin Inc. StandUp Time Tool</h1>
+            </div>
+            <h2>Date: @ViewData["date"]</h2>
+            <h2>Available team members: @ViewData["amountOfAvailableMembers"]</h2>
+            <form method="post">
+                <div class="input-group mb-3">
+                    <input asp-for="NeededMembers" type="text" class="form-control" placeholder="How many needs to attend today's standup?">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+            <h3>@ViewData["errorMessage"]</h3>
+            @if (ViewData["standUpTimes"] != null)
+            {
+                <h3>Found @ViewData["amountOfStandUpTimes"] possible times for @ViewData["neededMembers"] members:</h3>
+                <div class="list-group">
+                    @foreach (var time in (List<DateTimeOffset>) ViewData["standUpTimes"])
+                    {
+                        <a href="#" class="list-group-item text-center list-group-item-action">@time.ToString("HH:mm zzz")</a>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col col-lg-2">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
